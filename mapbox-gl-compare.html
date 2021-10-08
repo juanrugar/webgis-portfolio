@@ -1,0 +1,111 @@
+<html>
+
+<head>
+    <meta charset='utf-8' />
+    <title>JRG - Mapbox Comparing Map</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.0.1/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.0.1/mapbox-gl.css' rel='stylesheet' />
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-compare/v0.4.0/mapbox-gl-compare.js"></script>
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-compare/v0.4.0/mapbox-gl-compare.css" type="text/css" />
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inconsolata&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: visible;
+        }
+
+        #map {
+            /*position: absolute;
+            top: 0;
+            bottom: 0;  */
+            width: 100%;
+        }
+
+        .map {
+           /*position: absolute;
+            top: 0;
+            bottom: 0;  */
+            width: 100%;
+        }
+    </style>
+    <script>
+        //Añadir vuestro token!!
+        var map;
+        function init() {
+            mapboxgl.accessToken =
+                'pk.eyJ1IjoiZ2lzbWFzdGVybTIiLCJhIjoiY2plZHhubTQxMTNoYzMza3Rqa3kxYTdrOCJ9.53B1E6mKD_EQOVb2Y0-SsA';
+
+            var mapa1 = new mapboxgl.Map({
+                container: 'mapa1',
+                style: 'mapbox://styles/mapbox/satellite-v9',
+                center: [2.16859, 41.3954],
+                zoom: 13,
+                attributionControl: false,
+            });
+
+            var mapa2 = new mapboxgl.Map({
+                container: 'mapa2',
+                style: 'mapbox://styles/mapbox/light-v10',
+                center: [2.16859, 41.3954],
+                zoom: 13,
+                attributionControl: false,
+            });
+
+            mapa2.on('load', function () {
+                mapa2.addSource("orto1945", {
+                    type: "raster",
+                    tiles: [ 
+                        "https://geoserveis.icgc.cat/icc_ortohistorica/wms/service?layers=ovaa10m&bbox={bbox-epsg-3857}&format=image/png&styles=&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&transparent=true&width=512&height=512",
+                    ],
+                    tileSize: 512,
+                    maxzoom: 19,
+                    minZoom: 7.5,
+                });
+                //  ovab5m
+                mapa2.addLayer({
+                    id: "orto1945",
+                    source: "orto1945",
+                    type: "raster",
+                    maxzoom: 18
+                });
+            })
+
+            var map = new mapboxgl.Compare(mapa1, mapa2, "#comparador");
+
+        } // final init
+    </script>
+</head>
+
+<body onload="init()">
+    <div class="container">
+        
+        <nav class="navbar navbar-light bg-light">
+            <div>
+                <h2>Mapbox - Maputnik Style Map</h2>
+                <p>A MapboxGL map using the ICGC <a href="https://geoserveis.icgc.cat/contextmaps/fulldark.json" target="_blank"><em>fulldark</em></a> 
+                    <a href="https://openicgc.github.io/" target="_blank">open style</a> 
+                    edited with <a href="https://maputnik.github.io/editor/" target="_blank">Maputnik</a>
+                </p>
+            </div>
+            <div>
+                <ul class="breadcrumb">
+                    <li><a href="index.html">Main Page</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>    
+        
+        <div id="comparador">
+            <div id="mapa1" class="map"></div>
+            <div id="mapa2" class="map"></div>
+        </div>
+   
+</body>
+
+</html>

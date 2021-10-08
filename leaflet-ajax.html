@@ -1,0 +1,60 @@
+<html lang="es">
+    <head>
+        <title>JRG - WebGIS Maps</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="author" content="autor" />
+        <meta name="description" content="descripción página" />
+        <meta name="robots" content="index,follow" />
+
+        <!-- leaflet.js -->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+        <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+        
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        
+
+        <!-- PLUGIN Leaflet-AJAX -->
+        <script src="https://calvinmetcalf.github.io/leaflet-ajax/dist/leaflet.ajax.js"></script>
+
+        <!-- PLUGIN leaflet-search  -->
+        <script src="https://labs.easyblog.it/maps/leaflet-search/src/leaflet-search.js"></script>
+        <link rel="stylesheet" href="https://labs.easyblog.it/maps/leaflet-search/src/leaflet-search.css" />
+        
+        <!-- Adding leaflet-markercluster PLUGIN -->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
+        <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
+        <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+
+        <link href="https://fonts.googleapis.com/css2?family=Inconsolata&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="css/estilobase.css" />
+        <script src="js/basemaps.js"></script>
+        <script src="js/fountains.js"></script>
+        <script>       
+            function initMapFountains(){
+                init();     
+                addFountainsData();           
+            }         
+        </script>
+ 
+    </head>
+ 
+    <body onLoad="initMapFountains()">
+        <div class="container">
+            <nav class="navbar navbar-light bg-light">
+                <div>
+                <h2>Leaflet - Public Fountains of Valencia Search Page</h2>
+               
+                    <p>A search page with a map of the public fountains of Valencia. Optional single/clustered item representation</p>
+                </div>
+                <div>
+                    <ul class="breadcrumb">
+                        <li><a href="index.html">Main Page</a></li>
+                    </ul>
+                </div>
+            </nav>
+        <div id="map"> </div>
+    </body>
+ 
+    </html>

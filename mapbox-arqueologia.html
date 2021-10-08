@@ -1,0 +1,243 @@
+<html>
+
+<head>
+    <meta charset='utf-8' />
+    <title>Arqueologia</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css' rel='stylesheet' />
+    <script
+        src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.1/mapbox-gl-geocoder.min.js'></script>
+    <link rel='stylesheet'
+        href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.1/mapbox-gl-geocoder.css'
+        type='text/css' />
+    <link rel='stylesheet' href="css/arqueo.css">
+    <script src="datos/gva-arqueologia-coput.geojson"></script>
+
+
+</head>
+
+<body onload="init()">
+
+    <div id="mapa" class="map"></div>
+    <div id="target"><img src="images/target.svg" alt=""></div>
+    <div id="position"></div>
+
+
+    <script>
+        //Añadir vuestor token!!
+        var map;
+        var position = document.getElementById("position");
+        var url = 'datos/gva-arqueologia-coput.geojson';
+        function init() {
+            mapboxgl.accessToken =
+                'pk.eyJ1IjoianVhbnJ1Z2FyIiwiYSI6ImNranlpd2lqbzB5djQydW1sZTRvem9tdmgifQ.zvNvGIYji6wVpwjlnTHeJg';
+
+            map = new mapboxgl.Map({
+                container: 'mapa',
+                style: 'mapbox://styles/juanrugar/ckl9n804n13eu17rz3p6nfvje',//'mapbox://styles/mapbox/light-v10', 
+                center: [-4.42695, 40.14044],//[2.16859, 41.3954], //this is Barna
+                zoom: 5.50,
+                pitch: 0,
+                bearing: 0,
+
+            });
+
+
+            //controls
+            map.addControl(new mapboxgl.AttributionControl({ compact: true }));
+            map.addControl(new mapboxgl.NavigationControl());
+
+            //geocoder control added
+            map.addControl(new MapboxGeocoder({ accessToken: mapboxgl.accessToken, mapboxgl: mapboxgl }));
+
+            //requesting WMS service layer
+            map.on('load', function () {
+                updatePosition();
+
+                //WMTS service ICV 1956-57 ortos 
+                map.addSource("orto-hist", {
+                    type: "raster",
+                    tiles: [
+                   "https://geoserveis.icgc.cat/icc_ortohistorica/wms/service?layers=ovab5m&bbox={bbox-epsg-3857}&format=image/png&styles=&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&transparent=true&width=512&height=512"
+                    ],
+                    tileSize: 512
+                });
+
+                //  adding layer
+                map.addLayer({
+                    id: "orto-hist",
+                    source: "orto-hist",
+                    type: "raster",
+                    maxzoom: 18
+                });
+
+                map.addSource("wms-idearq", {
+                    type: "raster",
+                    tiles: [
+                        'http://www.idearqueologia.org/idearq/wms?SERVICE=WMS&REQUEST=GetMap&VERSION=1.1.1&LAYERS=idearq_base&FORMAT=image/png&BGCOLOR=0xFFFFFF&TRANSPARENT=true&SRS=EPSG:3857&BBOX={bbox-epsg-3857}&WIDTH=512&HEIGHT=512'
+                    ],
+                    tileSize: 512,
+
+                });
+
+                //  adding layer
+                map.addLayer({
+                    id: "wms-idearq",
+                    source: "wms-idearq",
+                    type: "raster",
+                    maxzoom: 18
+                });
+
+                
+                map.addSource('gva-sites',
+                    {
+                        type: 'geojson',
+                        data: url,
+                        cluster: true,
+                        clusterMaxZoom: 14, // Max zoom to cluster points on
+                        clusterRadius: 50
+
+                    });
+
+                map.addLayer({
+                    id: 'clusters',
+                    type: 'circle',
+                    source: 'gva-sites',
+                    filter: ['has', 'point_count'],
+                    paint: {
+                        'circle-color': [
+                            'step',
+                            ['get', 'point_count'],
+                            '#51bbd6',
+                            10,
+                            '#f1f075',
+                            30,
+                            '#f28cb1'
+                        ],
+                        'circle-radius': [
+                            'step',
+                            ['get', 'point_count'],
+                            20,
+                            10,
+                            30,
+                            30,
+                            40
+                        ]
+                    }
+                });
+                
+                map.addLayer({
+                    id: 'cluster-count',
+                    type: 'symbol',
+                    source: 'gva-sites',
+                    filter: ['has', 'point_count'],
+                    layout: {
+                        'text-field': '{point_count_abbreviated}',
+                        'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
+                        'text-size': 12
+                    }
+                });
+
+                map.addLayer({
+                    id: 'unclustered-point',
+                    type: 'circle',
+                    source: 'gva-sites',
+                    filter: ['!', ['has', 'point_count']],
+                    paint: {
+                        'circle-color': '#11b4da',
+                        'circle-radius': 4,
+                        'circle-stroke-width': 1,
+                        'circle-stroke-color': '#fff'
+                    }
+                });
+
+                map.on('click', 'unclustered-point', function (e) {
+
+                    var text = "";
+                    // console.info(e); // similar al console.log()
+                    //console.log(e.features[0]);
+                    for (key in e.features[0].properties) {
+
+                        text += "<b>" + key + "</b>:" + e.features[0].properties[key] + "<br>";
+                    }
+                    new mapboxgl.Popup()
+                        .setLngLat(e.lngLat)
+                        .setHTML(text)
+                        .addTo(map);
+
+                });
+
+                map.on('mouseenter', 'clusters', function () {
+                    map.getCanvas().style.cursor = 'pointer';
+                });
+
+                map.on('mouseleave', 'clusters', function () {
+                    map.getCanvas().style.cursor = '';
+                });
+
+                /* single circle layer
+                map.addLayer({
+                    'id': 'gva-sites',
+                    'type': 'circle',
+                    'source': 'gva-sites',
+                    'layout': {
+                    },
+                    'paint': {
+                        'circle-color': 'darkred',
+                        'circle-stroke-color': 'black',
+                        'circle-radius': 4
+                    }
+                });
+                
+
+                map.on('click', 'gva-sites', function (e) {
+
+                    var text = "";
+                    // console.info(e); // similar al console.log()
+                    //console.log(e.features[0]);
+                    for (key in e.features[0].properties) {
+
+                        text += "<b>" + key + "</b>:" + e.features[0].properties[key] + "<br>";
+                    }
+                    new mapboxgl.Popup()
+                        .setLngLat(e.lngLat)
+                        .setHTML(text)
+                        .addTo(map);
+
+                });
+
+                map.on('mouseenter', 'gva-sites', function () {
+                    map.getCanvas().style.cursor = 'pointer';
+                });
+
+                map.on('mouseleave', 'gva-sites', function () {
+                    map.getCanvas().style.cursor = '';
+                });     
+                END OF siMPLE CIRCLE */
+
+            })
+
+
+            map.on("moveend", function () {
+                updatePosition()
+            });
+
+            var updatePosition = function () {
+                var settings = 'center: [' + map.getCenter().lng.toFixed(5) + ', ' + map.getCenter().lat.toFixed(5) + '],\n' +
+                    'zoom: ' + map.getZoom().toFixed(2) + ',\n' +
+                    'bearing: ' + map.getBearing().toFixed(2) + '\n' +
+                    'pitch: ' + map.getPitch().toFixed(2) + ',\n';
+
+                position.innerText = settings;
+            };
+
+
+
+        } // final init
+
+
+    </script>
+</body>
+
+</html>

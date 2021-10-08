@@ -1,0 +1,34 @@
+<html lang="es">
+    <head>
+        <title>Mapa Base</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="autor" />
+        <meta name="description" content="descripción página">
+        <meta name="robots" content="index,follow">
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+        <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+        
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Inconsolata&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="css/estilobase.css" />
+        <script src="js/hybrid-map.js"></script>
+    </head>
+    <body onLoad="init()">
+        <div class="container">
+            <nav class="navbar navbar-light bg-light">
+                <div>
+                <h2>Leaflet - Hybrid Map</h2>
+               
+                    <p>A map with three basemap choices: imagery, topography or a hybrid of both</p>
+                </div>
+                <div>
+                    <ul class="breadcrumb">
+                        <li><a href="index.html">Main Page</a></li>
+                    </ul>
+                </div>
+            </nav>
+        <div id="map"></div>
+    </body>
+</html>

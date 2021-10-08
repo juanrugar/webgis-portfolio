@@ -1,0 +1,97 @@
+<html>
+
+<head>
+    <meta charset='utf-8' />
+    <title>JRG - Mapbox Basic</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.0.1/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.0.1/mapbox-gl.css' rel='stylesheet' />
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inconsolata&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/estilobase.css" />
+        
+    <script>
+        //Adding token and custom style
+        function init() {
+            mapboxgl.accessToken =
+                'pk.eyJ1IjoianVhbnJ1Z2FyIiwiYSI6ImNranlpd2lqbzB5djQydW1sZTRvem9tdmgifQ.zvNvGIYji6wVpwjlnTHeJg';
+            var map = new mapboxgl.Map({
+                container: 'map',
+                //style: 'mapbox://styles/mapbox/outdoors-v11',
+                style: 'mapbox://styles/juanrugar/ckjyk4vjl1v6e17s4jhhf1jql',
+                center: [2.16859, 41.3954], // Barna
+                // center: [-0.37918, 39.4741], //Valencia
+                zoom: 13,
+                attributionControl: false,
+                hash: true
+            });
+            //controls
+            map.addControl(new mapboxgl.AttributionControl({ compact: true }));
+            map.addControl(new mapboxgl.NavigationControl());
+
+            map.on('load', function () {
+                map.addSource("viasciclables_source", {
+                    type: "vector",
+                    url: "mapbox://juanrugar.41e78yl7" //poner mapbox://vuestro id
+                }); //fin map source
+
+                map.addLayer({
+                    id: "viasciclables",
+                    type: "line",
+                    source: "viasciclables_source",
+                    'source-layer': "vias_ciclables-8eaauu", //poner vuestro titulo capa
+                    paint: {
+                        'line-color': "#00ff00",
+                        "line-width": 3
+                    }
+                });
+
+                map.on('click', 'viasciclables', function (e) {
+
+                    var text = "";
+                   // console.info(e); // similar al console.log()
+                    //console.log(e.features[0]);
+                    for (key in e.features[0].properties) {
+
+                        text += "<b>" + key + "</b>:" + e.features[0].properties[key] + "<br>";
+                    }
+                    new mapboxgl.Popup()
+                        .setLngLat(e.lngLat)
+                        .setHTML(text)
+                        .addTo(map);
+                });
+
+                map.on('mouseenter', 'viasciclables', function () {
+                    map.getCanvas().style.cursor = 'pointer';
+                });
+
+                map.on('mouseleave', 'viasciclables', function () {
+                    map.getCanvas().style.cursor = '';
+                });
+            });
+
+        } //End of init()
+    </script>
+</head>
+
+<body onload="init()">
+    <div class="container">
+        <nav class="navbar navbar-light bg-light">
+            <div>
+                <h2>Mapbox - Basic Map</h2>
+                <p>A basic map with MapboxGL.js using a custom style developed in Mapbox Studio</p>
+            </div>
+            <div>
+                <ul class="breadcrumb">
+                    <li><a href="index.html">Main Page</a></li>
+                </ul>
+            </div>
+        </nav>
+    
+        <div id="map"></div>
+    </div>
+</body>
+
+</html>

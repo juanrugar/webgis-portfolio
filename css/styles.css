@@ -1,0 +1,52 @@
+  .seccion {
+    border-radius: 0px !important;
+  }
+
+  .container {
+    margin-top: 5px;
+  }
+
+  .mapbox {
+    background-color: #e7e7f1;
+  }
+
+  .kepler {
+    background-color: #f1e7ea;
+  }
+
+  .practicas {
+    background-color: #e7f0f1;
+  }
+
+  .leaflet {
+    background-color: #e7f1e8;
+  }
+
+
+  small {
+    font-size: 60% !important;
+  }
+
+
+  .navbar {
+    background-color: #f1e9e7 !important;
+    border-radius: 0px !important;
+  }
+
+  .row {     
+    margin-top: 10px;
+
+  }
+
+
+  body {
+    font-family: 'Inconsolata', sans-serif !important;
+    font-size:16px !important;
+
+  }
+
+  @media screen and (max-width: 500px) {
+    body {
+      font-size: 80% !important;
+    }
+  }

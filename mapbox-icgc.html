@@ -1,0 +1,53 @@
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title>JRG - Mapbox ICGC Topo Map</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.0.1/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.0.1/mapbox-gl.css' rel='stylesheet' />
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inconsolata&display=swap" rel="stylesheet">
+    <link href='css/estilobase.css' rel='stylesheet' />
+    <script>
+        function init() {
+
+            mapboxgl.accessToken ='pk.eyJ1IjoianVhbnJ1Z2FyIiwiYSI6ImNranlpd2lqbzB5djQydW1sZTRvem9tdmgifQ.zvNvGIYji6wVpwjlnTHeJg';
+            var map = new mapboxgl.Map({
+                container: 'map',
+                style: 'https://geoserveis.icgc.cat/contextmaps/icgc.json',
+                center: [2.16859, 41.3954],
+                zoom: 13,
+                hash: true,
+                pitch: 45,
+                attributionControl: false
+            });
+            map.addControl(new mapboxgl.AttributionControl({
+                compact: true
+            }));
+            map.addControl(new mapboxgl.NavigationControl());
+
+        }
+    </script>
+</head>
+<body onload="init()">
+    <div class="container">
+        <nav class="navbar navbar-light bg-light">
+            <div>
+                <h2>Mapbox - ICGC Topographic Map</h2>
+                <p>A MapboxGL map using the ICGC  
+                    -<a href="https://www.icgc.cat/en/Public-Administration-and-Enterprises/Services/Online-services-Geoservices" target="_blank">Institut Cartogràfic i Geològic de Catalunya</a>-
+                    Vector Tiles from
+                    <a href="https://openicgc.github.io/" target="_blank">open resources</a></p>
+            </div>
+            <div>
+                <ul class="breadcrumb">
+                    <li><a href="index.html">Main Page</a></li>
+                </ul>
+            </div>
+        </nav>
+        <div id='map'></div>
+    </div>
+</body>
+</html>
