@@ -1,25 +1,25 @@
-function terremotosGeonamesToGeoJSON(respuestaGeonames) {
+function quakesGeonamesToGeoJSON(answerGeonames) {
 
     var geoJSON = {
         "type": "FeatureCollection",
         "features": []
     };
 
-    for (var i = 0; i < respuestaGeonames.earthquakes.length; i++) {
+    for (var i = 0; i < answerGeonames.earthquakes.length; i++) {
 
         geoJSON.features.push(
             {
                 "type": "Feature",
                 "properties": {
-                    "magnitude": respuestaGeonames.earthquakes[i].magnitude,
-                    "datetime": respuestaGeonames.earthquakes[i].datetime,
-                    "depth": respuestaGeonames.earthquakes[i].depth
+                    "magnitude": answerGeonames.earthquakes[i].magnitude,
+                    "datetime": answerGeonames.earthquakes[i].datetime,
+                    "depth": answerGeonames.earthquakes[i].depth
                 },
                 "geometry": {
                     "type": "Point",
                     "coordinates": [
-                        respuestaGeonames.earthquakes[i].lng,
-                        respuestaGeonames.earthquakes[i].lat
+                        answerGeonames.earthquakes[i].lng,
+                        answerGeonames.earthquakes[i].lat
                     ]
                 }
             }
@@ -31,9 +31,9 @@ function terremotosGeonamesToGeoJSON(respuestaGeonames) {
 
 } //fin funcion
 
-function generarPeticionTerremotos() {
+function generateRequestQuakes() {
 
-    var peticion = 'https://secure.geonames.org/earthquakesJSON?' +
+    var request = 'https://secure.geonames.org/earthquakesJSON?' +
         'north=' + map.getBounds()._ne.lat + '&' +
         'south=' + map.getBounds()._sw.lat + '&' +
         'east=' + map.getBounds()._ne.lng + '&' +
@@ -43,9 +43,9 @@ function generarPeticionTerremotos() {
         'username=masterupc&';
     //date : 'yyyy-MM-d
 
-    enviarPeticion(peticion).then(function (respuestaGeonames) {
+    enviarPeticion(request).then(function (answerGeonames) {
 
-        var geoJSON = terremotosGeonamesToGeoJSON(respuestaGeonames);
+        var geoJSON = quakesGeonamesToGeoJSON(answerGeonames);
 
         if (!map.getSource("terremotos_source")) {
 

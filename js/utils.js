@@ -15,7 +15,6 @@ async function enviarPeticion(url) {
 
 }
 
-
 var popup = new mapboxgl.Popup({
     closeButton: false,
     closeOnClick: false
@@ -29,7 +28,7 @@ function addPopupToMap(nombreCapa) {
         //console.info(e);
         for (key in e.features[0].properties) {
 
-            text += "<b>" + key + "</b>:" + e.features[0].properties[key] + "<br>";
+            text += "<b>" + key + "</b>: " + e.features[0].properties[key] + "<br>";
         }
 
         popup.setLngLat(e.lngLat)

@@ -17,23 +17,23 @@
         body {
             margin: 0;
             padding: 0;
-            overflow: visible;
+            overflow: hidden;
         }
 
         #map {
-            /*position: absolute;
+            position: absolute;
             top: 0;
-            bottom: 0;  */
+            bottom: 0;
             width: 100%;
         }
 
         .map {
-           /*position: absolute;
+            position: absolute;
             top: 0;
-            bottom: 0;  */
+            bottom: 0;
             width: 100%;
         }
-    </style>
+    </style>    
     <script>
         //Añadir vuestro token!!
         var map;
@@ -83,29 +83,30 @@
 </head>
 
 <body onload="init()">
-    <div class="container">
-        
+    <!-- <div class="container">
         <nav class="navbar navbar-light bg-light">
-            <div>
-                <h2>Mapbox - Maputnik Style Map</h2>
-                <p>A MapboxGL map using the ICGC <a href="https://geoserveis.icgc.cat/contextmaps/fulldark.json" target="_blank"><em>fulldark</em></a> 
-                    <a href="https://openicgc.github.io/" target="_blank">open style</a> 
-                    edited with <a href="https://maputnik.github.io/editor/" target="_blank">Maputnik</a>
-                </p>
-            </div>
-            <div>
-                <ul class="breadcrumb">
-                    <li><a href="index.html">Main Page</a></li>
-                </ul>
-            </div>
+                <div class="row">
+                    <div class="col">
+                        <h2>Mapbox - Comparing Map</h2>
+                        <p>A MapboxGL map using the <a href="https://docs.mapbox.com/mapbox-gl-js/example/mapbox-gl-compare/" target="_blank"><em>mapbox-gl-compare plugin</em></a> 
+                        showing two ortophotos of Barcelona from 2020 and 1945, and allowing to sweep between them     
+                        </p>
+                    </div>
+               
+                    <div>
+                        <ul class="breadcrumb">
+                            <li><a href="index.html">Main Page</a></li>
+                        </ul>
+                    </div>
+                </div>
         </nav>
-    </div>    
-        
+    </div>  -->
+    
         <div id="comparador">
             <div id="mapa1" class="map"></div>
             <div id="mapa2" class="map"></div>
         </div>
-   
+    
 </body>
 
 </html>
