@@ -9,7 +9,7 @@ function init() {
     zoom:14});
 
     //a basic layer for the map
-    layer1 = L.tileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+    layer1 = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
     {
     maxZoom : 19,
     minZoom : 1,
