@@ -7,8 +7,8 @@ var config = {
     use3dTerrain: true,
     title: 'Volcanes',
     subtitle: 'Los principales volcanes activos del mundo',
-    byline: 'M2B ',
-    footer: 'Source: Wikipedia',
+    byline: 'Cinco montes volcánicos cuya actividad reciente deja huella en la actualidad',
+    footer: 'Fuentes: wikipedia.org; imagen de Cumbre Vieja de Eduardo Robaina <a>https://commons.wikimedia.org/w/index.php?curid=110322497</a>',
     chapters: [
         {
             id: 'volcan1',
@@ -19,7 +19,7 @@ var config = {
             description: 'También conocido como Eyjafjöll,2​ o Eyjafjalla,3​ es un volcán situado al norte de Skógar, en la región de Suðurland, al sur de Islandia.4​ Tiene entre 1651 m y 1666 m de altitud,​ y ha estado moderadamente activo en los últimos 8000 años.',
             location: {
                 center: [-19.62, 63.63],
-                zoom: 13.5,
+                zoom: 14.5,
                 pitch: 60,
                 bearing: 0
             },
@@ -79,12 +79,31 @@ var config = {
             id: 'volcan4',
             alignment: 'right',
             hidden: false,
-            title: 'Volcán de Fuego, Guetamala',
+            title: 'Volcán de Fuego, Guatemala',
             image: 'https://upload.wikimedia.org/wikipedia/commons/a/a8/Fuego_Eruption.jpg',
             description: 'El volcán de Fuego es a lo que se le conoce como un estratovolcán activo situado entre los departamentos de Sacatepéquez, Escuintla y Chimaltenango, al centro-sur de Guatemala. El volcán de Fuego es el volcán más activo de Centroamérica y uno de los más activos del mundo. Su nombre indígena es Chi gag, que se traduciría del idioma cakchiquel como <q>donde está el fuego</q>. El volcán de Fuego tiene una altura de 3763 m de altitud, quedando libre de vegetación a partir de los 1300 m.',
             location: {
                 center: [-90.880833, 14.474722],
                 zoom: 14.45,
+                pitch: 54,
+                bearing: 0
+            },
+            mapAnimation: 'flyTo',
+            rotateAnimation: true,
+            callback: '',
+            onChapterEnter: [],
+            onChapterExit: []
+        },
+        {
+            id: 'volcan5',
+            alignment: 'left',
+            hidden: false,
+            title: 'Cumbre Vieja, Isla de La Palma, Canarias, España',
+            image: 'https://upload.wikimedia.org/wikipedia/commons/6/62/LUN_8401.jpg',
+            description: 'La erupción volcánica de La Palma de 2021 se inició a las 14:10 horas (UTC) del 19 de septiembre en el paraje de Cabeza de Vaca, cercano a la localidad de El Paraíso del municipio de El Paso, en la isla española de La Palma',
+            location: {
+                center: [-17.837472, 28.572622],
+                zoom: 15.45,
                 pitch: 54,
                 bearing: 0
             },
