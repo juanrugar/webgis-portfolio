@@ -4,7 +4,7 @@ var map, layer1;
 function init() {
 
     //map object instantation 
-    map = L.map("map",      
+    map = L.map('map',      
     {center:[39.47, -0.376389],
     zoom:14});
 
