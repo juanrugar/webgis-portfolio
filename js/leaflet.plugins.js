@@ -13,7 +13,7 @@ function init() {
     {
     maxZoom : 19,
     minZoom : 1,
-    attribution : "OSM"
+    attribution : '&copy; <a href="http://www.openstreetmap.org/copyright"/>OpenStreetMap</a>'
     }).addTo(map);
 
     //variable to instantiate the Leaflet plugin 

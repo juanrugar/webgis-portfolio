@@ -6,12 +6,16 @@
         <meta name="author" content="autor" />
         <meta name="description" content="descripción página">
         <meta name="robots" content="index,follow">
+
         <!-- Leaflet.js CDN-->
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
         <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 
+        <!-- Bootstrap CDN-->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="preconnect" href="https://fonts.gstatic.com">
+
+        <!-- Styles -->
         <link href="https://fonts.googleapis.com/css2?family=Inconsolata&display=swap" rel="stylesheet">
         <style>
             body {
@@ -35,7 +39,7 @@
                 capa1 = L.tileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",        //Layer object instantation
                 {maxZoom: 19,
                     minZoom: 1,
-                    Attribution: "OSM",
+                    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright"/>OpenStreetMap</a>'
                 });
                 
                 controlCapas = L.control.scale().addTo(map);
