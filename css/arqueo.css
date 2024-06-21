@@ -22,7 +22,9 @@ body {
     display: flex; justify-content: center; align-items: center;
     pointer-events: none;
 }
-#target img { width:30px; height:30px; }
+#target img { 
+    width:30px; height:30px; 
+}
 #position { 
     position:absolute; top:0; height: 80px; width: 300px; 
     background-color: #fff;
