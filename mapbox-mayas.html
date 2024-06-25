@@ -1,9 +1,19 @@
 <html>
 
 <head>
-    <meta charset='utf-8' />
+    
     <title>Tierras Mayas</title>
-    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <meta charset='utf-8' />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="autor" />
+    <meta name="description" content="descripción página" />
+    <meta name="robots" content="index,follow" />
+
+    <!-- BOOTSTRAP -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+
+    <!-- MAPBOXJS -->
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css' rel='stylesheet' />
     <script
@@ -12,65 +22,97 @@
         href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.1/mapbox-gl-geocoder.css'
         type='text/css' />
         <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.js"></script>
-<link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.css" type="text/css">
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.css" type="text/css">
+    
+    <!-- CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Inconsolata&display=swap" rel="stylesheet">
     <link rel='stylesheet' href="css/arqueo.css">
+    
+    <!-- -->
     <script src="js/utils.js"></script>
+
+    <!-- DATA FILE -->
     <script src="js/archaeoSites.js"></script>
 
 
 </head>
 
 <body onload="init()">
+    <div class="container">
+        <nav class="navbar navbar-light bg-light">
+            <div>
+                <h2>Maya Lowlands - Ancient Maya Sites location app</h2>
+                <p>A search page with a map of the public fountains of Valencia. Optional single/clustered item representation</p>
+            </div>
+            <div>
+                <ul class="breadcrumb">
+                    <li><a href="index.html">HOME</a></li>
+                </ul>
+            </div>
+        </nav>
+        <!-- <div id="position"></div> -->
+        <div id="mapa"></div>
+        
+        <!-- target 
+                 <div id="target"><img src="images/target.svg" alt=""></div>
+        -->
 
-    <div id="mapa" class="map"></div>
-    <div id="target"><img src="images/target.svg" alt=""></div>
-    <div id="position"></div>
-
+        
+    </div>
 
     <script>
-        //Añadir vuestor token!!
+        //ADD YOUR TOKEN
         var map;
         var position = document.getElementById("position");
+        const bounds = [
+            [-90.413235, 17.414822], // [west, south]
+            [-89.013418, 15.981963], // [east, north]
+        ];
         
+        //INIT START
         function init() {
             mapboxgl.accessToken =
                 'pk.eyJ1IjoianVhbnJ1Z2FyIiwiYSI6ImNranlpd2lqbzB5djQydW1sZTRvem9tdmgifQ.zvNvGIYji6wVpwjlnTHeJg';
-
+            
             map = new mapboxgl.Map({
                 container: 'mapa',
                 style: 'mapbox://styles/juanrugar/cklb64gd31uvg17qu0a43nlf2', 
                 center: [-89.47651, 16.95207],
-                zoom: 8.14,
+                zoom: 9,
                 bearing: 0.00,
                 pitch: 0.00
             });
-
+          // map.setMaxBounds(bounds);
 
             //controls
             map.addControl(new mapboxgl.AttributionControl({ compact: true }));
             map.addControl(new mapboxgl.NavigationControl());
 
-            //geocoder control added
+            /*GEOCODER PLUGIN
             map.addControl(new MapboxGeocoder({ accessToken: mapboxgl.accessToken, mapboxgl: mapboxgl }));
 
+            */
+
+            /* DIRECTIONS PLUGIN
             var directions = new MapboxDirections({
                 accessToken: mapboxgl.accessToken,
                 unit: 'metric',
                 profile: 'mapbox/driving'
             });
-
-            map.addControl(directions,'bottom-left');
             
+            map.addControl(directions,'bottom-left');
+            */
+
             map.on('load', function () {
                 //geocoder
-                updatePosition();
+             //   updatePosition();
                 //archaeological sites location
                 addSites();
                 //popup with site data
                 addPopupToMap("siteMap");
 
-            })
-
+            });
+/*
             map.on("click", function () {
                 updatePosition()
             });
@@ -83,9 +125,9 @@
 
                 position.innerText = settings;
             };
-
+*/
            
-        } // final init
+        } // INIT END
 
 
     </script>

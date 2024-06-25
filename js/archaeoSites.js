@@ -11,9 +11,10 @@ function addSites() {
         'layout': {
         },
         'paint': {
-            'circle-color': 'darkred',
-            'circle-stroke-color': 'black',
-            'circle-radius': 4
+            'circle-color': '#fff',
+            'circle-stroke-color': '#000',
+            'circle-stroke-width':1,
+            'circle-radius': 5
         }
     });
 
