@@ -18,6 +18,11 @@ function init() {
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright"/>OpenStreetMap</a>'
         }).addTo(map);
 
+    // Imagery map
+    Esri_WorldImagery = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+        attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX,GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+    });
+
     //variable to instantiate the Leaflet plugin 
     let osmGeocoder = new L.Control.OSMGeocoder({
         placeholder: 'search location...'
@@ -29,6 +34,14 @@ function init() {
         position: 'topright',
         showCompass: true
     }).addTo(map);
+
+    var mapaBase = {
+        'Map': layer1,
+        'Satellite': Esri_WorldImagery
+    };
+
+    controlCapas = L.control.layers(mapaBase, null, { collapsed: true });
+    controlCapas.addTo(map);
 
     L.control.scale().addTo(map);
 
